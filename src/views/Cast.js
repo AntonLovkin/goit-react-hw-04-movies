@@ -6,6 +6,16 @@ import { Component } from "react";
 class Cast extends Component {
     state = {}
 
+    componentDidMount() {
+        console.log(Number(this.props.match.params.movieId));
+        console.log(this.props.movies);
+    }
+
+    componentDidUpdate() {
+        console.log(Number(this.props.match.params.movieId));
+        console.log(this.props.movies);
+    }
+
     render() {
                
         return (

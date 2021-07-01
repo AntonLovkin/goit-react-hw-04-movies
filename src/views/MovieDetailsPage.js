@@ -10,13 +10,7 @@ class MovieDetailsPage extends Component {
     state = {
         genres: [],
         poster_path: null,
-        homepage: null,
-        id: null,
-        original_title: null,
         overview: null,
-        popularity: null,
-        release_date: null,
-        tagline: null,
         title: null,
         vote_average: null,
     };
@@ -30,17 +24,27 @@ class MovieDetailsPage extends Component {
         this.setState({...response.data})
     }
     render() {
-        // console.log(this.props.match.params);
-         const {title, poster_path, overview } = this.state;
+        console.log(this.props.match.path);
+        const IMG_URL = 'https://image.tmdb.org/t/p/w300';
+
+         const {genres,
+        poster_path,
+        overview,
+        title,
+        vote_average } = this.state;
         return (
         <>
                 <h1>MovieDetailsPage-{this.props.match.params.movieId}</h1>
                 <h2>{title}</h2>
-                <img src={poster_path} alt=''/>
+                <img src={`${IMG_URL}${poster_path}`} alt={title}/>
+                <h2>Movie rating: {vote_average}</h2>
                 <h2>Overview</h2>
                 <p>{overview}</p>
                 <h2>Genres</h2>
-                {/* <p>{this.state.genres}</p> */}
+                <ul>
+                    {genres.map(({ id, name }) => 
+                        <li key={id}>{name}</li>)}
+                </ul>
                 <ul>
                     <li>
                         <NavLink to={`${this.props.match.url}/cast`}>Cast</NavLink>
@@ -49,8 +53,12 @@ class MovieDetailsPage extends Component {
                         <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink>
                     </li>
                 </ul>
-                <Route path="/movies/:movieId/cast" component={Cast} />
-                <Route path="/movies/:movieId/reviews" component={Reviews} />
+                
+                <Route path={`${this.props.match.path}/cast`} render={props => {
+                    return <Cast {...props} movies={this.state.movies} />
+                }}
+                />
+                <Route path={`${this.props.match.path}/reviews`} component={Reviews} />
         </>)
        
     }
