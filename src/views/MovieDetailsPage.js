@@ -3,8 +3,9 @@ import axios from 'axios';
 import { Route, NavLink } from 'react-router-dom';
 import Cast from './Cast';
 import Reviews from './Reviews';
+import API from '../API';
 
-const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
+// const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 
 class MovieDetailsPage extends Component {
     state = {
@@ -15,23 +16,22 @@ class MovieDetailsPage extends Component {
         vote_average: null,
     };
 
-    async componentDidMount() {
-        const { movieId } = this.props.match.params;
-
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
-        console.log(response.data);
-
-        this.setState({...response.data})
+    componentDidMount() {
+        API.fetchMovieDetails(this.props.match.params.movieId).then(data => this.setState({ ...data }));
+        // console.log(this.props.match.params.movieId);
+        
+        // const { movieId } = this.props.match.params;
+        // const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`);
+        // console.log(response.data);
+        // this.setState({...response.data})
     }
     render() {
-        console.log(this.props.match.path);
+        // console.log(this.props.match.path);
         const IMG_URL = 'https://image.tmdb.org/t/p/w300';
-
-         const {genres,
-        poster_path,
-        overview,
-        title,
-        vote_average } = this.state;
+        
+        const { movieId } = this.props.match.params;
+        const { location } = this.props;
+        const {genres,poster_path,overview,title,vote_average } = this.state;
         return (
         <>
                 <h1>MovieDetailsPage-{this.props.match.params.movieId}</h1>
@@ -59,10 +59,8 @@ class MovieDetailsPage extends Component {
                 }}
                 />
                 <Route path={`${this.props.match.path}/reviews`} component={Reviews} />
-        </>)
-       
-    }
-    
+        </>)    
+    }   
 }
 
 export default MovieDetailsPage;
