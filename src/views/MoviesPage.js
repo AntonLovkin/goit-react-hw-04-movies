@@ -8,86 +8,49 @@ const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 class MoviesPage extends Component {
     state = {
         movies: [],
+        value: '',
     }
 
     async componentDidMount() {
         
         const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
             // .then(response => this.setState({ movies: response.data.results }))
-        console.log(response.data.results);
+        // console.log(response.data.results);
+
+        // console.log(this.state.movies);
 
         this.setState({movies: response.data.results})
     }
 
+    setValue = (e) => {
+        this.setState({ value: e.target.value });
+    };
+    
+    // renderMovies = (e) => {
+    //     e.preventDefault();
+    //     API.fetchMoviesWithSearchQuery(this.state.value).then(movies => {
+    //         this.setState({ movies: movies });
+    //         localStorage.setItem('movies', JSON.stringify(movies));
+    //         if (this.state.movies.length === 0) {
+    //         alert('We could not find movies with this query')
+    //         };
+    //     });
+    // };
+
     render() {
-        console.log(this.props.match.url);
-        
+        const { value, movies } = this.state;
+        console.log(movies);
         return (
             <>
-                <h1>Movies Page</h1>
-
-                <ul>
-                    {this.state.movies.map(movie => (
-                        <li key={movie.id}>
-                            <Link to={`${this.props.match.url}/${movie.id}`}>
-                                {movie.title}</Link>
-                        </li>
-                    ))}
-                </ul>
+                <form onSubmit={this.renderMovies}>
+                    <input type="text" value={value} onChange={this.setValue} className='input'/>
+                    <button type='submit'>Search</button>
+                </form>
+                {/* {movies.length > 0 && <RenderMovies movies={movies} />} */}
             </>
-        )
-    }
+        );
+    };
 }
 
 export default MoviesPage;
 
-// const MoviesPage = () => {
-//     return (<h1>Movies-Page</h1>)
-// }
-
-// export default MoviesPage;
-
-
-/////////////////
-// class MoviesPage extends Component {
-//     state = { query: ' '}
-    
-//     handleChange = event => {
-//         this.setState({query: event.currentTarget.value})
-//     }
-
-//     handleSubmit = event => {
-//         event.preventDefault();
-
-//         this.props.onSubmit(this.state.query);
-
-//         this.setState({ query: ''})
-//         // console.log(this.state);
-//     }
-
-//     render() {
-//         return (
-//           <header className="Searchbar">
-//             <form onSubmit={this.handleSubmit} className="SearchForm">
-//                 <button type="submit" className="SearchForm-button">
-//                    <span className="SearchForm-button-label">Search</span>
-//                 </button>
-//                 <input
-//                     className="SearchForm-input"
-//                     type="text"
-//                     autoComplete="off"
-//                     autoFocus
-//                     placeholder="Search images and photos"
-//                     value={this.state.query}
-//                     onChange={this.handleChange}
-//                 />
-//                 {/* <button type="submit" className="SearchForm-button">Search</button> */}
-//             </form>
-//           </header>
-//         )
-//     }
-                
-
-// }
-
-// export default MoviesPage;
