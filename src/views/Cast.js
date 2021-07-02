@@ -1,9 +1,5 @@
-import React from 'react';
-import { Component } from "react";
-import axios from 'axios';
+import React, { Component } from 'react';
 import API from '../API';
-
-const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 
 class Cast extends Component {
     state = {
@@ -15,11 +11,6 @@ class Cast extends Component {
         console.log(this.state.cast);
         console.log(this.props.match.params.movieId);
     }
-
-    // componentDidUpdate() {
-    //     console.log(Number(this.props.match.params.movieId));
-    //     console.log(this.props.movies);
-    // }
 
     render() {
         const IMG_URL = 'https://image.tmdb.org/t/p/w300';
