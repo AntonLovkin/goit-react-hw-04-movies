@@ -24,6 +24,27 @@ class MovieDetailsPage extends Component {
         // console.log(response.data);
         // this.setState({...response.data})
     }
+
+    
+
+    handleGoBack = () => {
+
+       const routes = {
+           home: '/',
+           movies: "/movies",
+           detailsMovies: "/movies/:movieId",
+           cast: '/movies/:movieId/cast',
+           reviews: '/movies/:movieId/reviews'
+};
+        const { location, history } = this.props;
+
+        if (location.state && location.state.from) {
+          return history.push(location.state.from);
+        };
+
+         history.push(`${routes.home}`);
+    };
+
     render() {
         // console.log(this.props.match.path);
         const IMG_URL = 'https://image.tmdb.org/t/p/w300';
@@ -32,7 +53,8 @@ class MovieDetailsPage extends Component {
         const { location } = this.props;
         const {genres,poster_path,overview,title,vote_average } = this.state;
         return (
-        <>
+            <>
+                <button type="button" onClick={this.handleGoBack} className='back-button'>Go Back</button>
                 <h1>MovieDetailsPage-{this.props.match.params.movieId}</h1>
                 <h2>{title}</h2>
                 <img src={`${IMG_URL}${poster_path}`} alt={title}/>
