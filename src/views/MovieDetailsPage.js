@@ -25,24 +25,27 @@ class MovieDetailsPage extends Component {
         // this.setState({...response.data})
     }
 
-    
-
     handleGoBack = () => {
 
        const routes = {
            home: '/',
-           movies: "/movies",
-           detailsMovies: "/movies/:movieId",
+           movies: '/movies',
+           detailsMovies: '/movies/:movieId',
            cast: '/movies/:movieId/cast',
            reviews: '/movies/:movieId/reviews'
 };
         const { location, history } = this.props;
+        // console.log(location);
+        //  console.log(location.state);
+        //  console.log(location.state.from);
 
         if (location.state && location.state.from) {
+            // console.log(location.state.from);
           return history.push(location.state.from);
         };
 
-         history.push(`${routes.home}`);
+        history.push(`${routes.home}`);
+        
     };
 
     render() {
@@ -51,7 +54,9 @@ class MovieDetailsPage extends Component {
         
         const { movieId } = this.props.match.params;
         const { location } = this.props;
+        // console.log(location);
         const {genres,poster_path,overview,title,vote_average } = this.state;
+        // console.log(location.state.from);
         return (
             <>
                 <button type="button" onClick={this.handleGoBack} className='back-button'>Go Back</button>

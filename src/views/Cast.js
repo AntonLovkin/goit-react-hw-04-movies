@@ -7,9 +7,12 @@ class Cast extends Component {
     }
 
     componentDidMount() {
-        API.fetchMovieCast(this.props.match.params.movieId).then(cast => this.setState({ cast: cast }))
+        API.fetchMovieCast(this.props.match.params.movieId).then(cast =>
+            this.setState({ cast: cast })
+            // console.log(cast)
+        )
         console.log(this.state.cast);
-        console.log(this.props.match.params.movieId);
+        // console.log(this.props.match.params.movieId);
     }
 
     render() {

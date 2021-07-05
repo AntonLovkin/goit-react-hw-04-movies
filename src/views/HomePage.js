@@ -1,9 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
-import axios from 'axios';
-import {Link} from 'react-router-dom';
+// import axios from 'axios';
+import { Link } from 'react-router-dom';
+import API from '../API';
 
-const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
+// const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 
 class HomePage extends Component {
     state = {
@@ -11,12 +12,15 @@ class HomePage extends Component {
     }
 
     async componentDidMount() {
-        
-        const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
-            // .then(response => this.setState({ movies: response.data.results }))
-        // console.log(response.data.results);
 
-        this.setState({movies: response.data.results})
+        API.fetchTrendingMovies().then(movies => { this.setState({ movies: movies }) });
+        localStorage.setItem('movies', JSON.stringify([]))
+        
+        // const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
+        //     // .then(response => this.setState({ movies: response.data.results }))
+        // // console.log(response.data.results);
+
+        // this.setState({movies: response.data.results})
     }
 
     render() {

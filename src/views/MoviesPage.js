@@ -4,8 +4,8 @@ import RenderMovies from './RenderMovies';
 
 class MoviesPage extends Component {
     state = {
-        // movies: JSON.parse(localStorage.getItem('movies')),
-        movies: [],
+        movies: JSON.parse(localStorage.getItem('movies')),
+        // movies: [],
         value: '',
     }
 
@@ -13,8 +13,8 @@ class MoviesPage extends Component {
         e.preventDefault();
         API.fetchMoviesWithSearchQuery(this.state.value).then(movies => {
             this.setState({ movies: movies });
-            // localStorage.setItem('movies', JSON.stringify(movies));
-            console.log(this.state.movies);
+            localStorage.setItem('movies', JSON.stringify(movies));
+            // console.log(this.state.movies);
             if (this.state.movies.length === 0) {
             alert('We could not find movies with this query')
             };
@@ -27,7 +27,7 @@ class MoviesPage extends Component {
 
     render() {
         const { value, movies } = this.state;
-        console.log(movies);
+        // console.log(movies);
         return (
             <>
                 <form onSubmit={this.renderMovies}>

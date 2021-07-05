@@ -21,7 +21,6 @@ const API = {
 
     fetchMovieCast(id) {
         return axios.get(`${this.BASE_URL}/movie/${id}/credits?api_key=${this.API_KEY}`).then(response => response.data.cast)
-        console.log();
     }
 };
 
