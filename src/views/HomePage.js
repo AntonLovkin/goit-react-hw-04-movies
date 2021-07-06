@@ -25,16 +25,24 @@ class HomePage extends Component {
 
     render() {
         // console.log(this.props.match.url);
+        const { location } = this.state.movies
+        // console.log(location);
         
         return (
             <>
                 <h1>HomePage</h1>
 
                 <ul>
-                    {this.state.movies.map(movie => (
-                        <li key={movie.id}>
-                            <Link to={`/movies/${movie.id}`}>
-                                {movie.title}</Link>
+                    {this.state.movies.map(({id, title}) => (
+                        <li key={id}>
+                            <Link
+                                to={{
+                                    pathname: `movies/${id}`,
+                                    state: {from: location}
+                                }}
+                                // to={`/movies/${id}`}
+                            >
+                                {title}</Link>
                         </li>
                     ))}
                 </ul>

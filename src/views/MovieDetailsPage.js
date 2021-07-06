@@ -3,6 +3,7 @@ import { Route, NavLink } from 'react-router-dom';
 import Cast from './Cast';
 import Reviews from './Reviews';
 import API from '../API';
+import routes from '../routes'
 
 // const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 
@@ -53,6 +54,7 @@ class MovieDetailsPage extends Component {
         const IMG_URL = 'https://image.tmdb.org/t/p/w300';
         
         const { movieId } = this.props.match.params;
+        // console.log(movieId);
         const { location } = this.props;
         // console.log(location);
         const {genres,poster_path,overview,title,vote_average } = this.state;
@@ -73,10 +75,12 @@ class MovieDetailsPage extends Component {
                 </ul>
                 <ul>
                     <li>
-                        <NavLink to={`${this.props.match.url}/cast`}>Cast</NavLink>
+                        {/* <NavLink to={`${this.props.match.url}/cast`}>Cast</NavLink> */}
+                        <NavLink to={{pathname:`${routes.movies}/${movieId}/cast`, state: { from: location.state.from }}}>Cast</NavLink>
                     </li>
                     <li>
-                        <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink>
+                        {/* <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink> */}
+                        <NavLink to={{pathname:`${routes.movies}/${movieId}/reviews`, state: { from: location.state.from }}}>Reviews</NavLink>
                     </li>
                 </ul>
                 
