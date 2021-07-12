@@ -38,15 +38,15 @@ class MovieDetailsPage extends Component {
         const { location, history } = this.props;
         // console.log(location);
         //  console.log(location.state);
-        //  console.log(location.state.from);
+         console.log(location.state.from);
 
         if (location.state && location.state.from) {
             // console.log(location.state.from);
+            // console.log(history);
           return history.push(location.state.from);
         };
-
-        history.push(`${routes.home}`);
-        
+        history.push(`${routes.home}`)
+                   
     };
 
     render() {
@@ -62,7 +62,6 @@ class MovieDetailsPage extends Component {
         return (
             <>
                 <button type="button" onClick={this.handleGoBack} className='back-button'>Go Back</button>
-                <h1>MovieDetailsPage-{this.props.match.params.movieId}</h1>
                 <h2>{title}</h2>
                 <img src={`${IMG_URL}${poster_path}`} alt={title}/>
                 <h2>Movie rating: {vote_average}</h2>
@@ -76,11 +75,17 @@ class MovieDetailsPage extends Component {
                 <ul>
                     <li>
                         {/* <NavLink to={`${this.props.match.url}/cast`}>Cast</NavLink> */}
-                        <NavLink to={{pathname:`${routes.movies}/${movieId}/cast`, state: { from: location.state.from }}}>Cast</NavLink>
+                        <NavLink to={{
+                            pathname: `${routes.movies}/${movieId}/cast`,
+                            state: { from: location.state.from }
+                        }}>Cast</NavLink>
                     </li>
                     <li>
                         {/* <NavLink to={`${this.props.match.url}/reviews`}>Reviews</NavLink> */}
-                        <NavLink to={{pathname:`${routes.movies}/${movieId}/reviews`, state: { from: location.state.from }}}>Reviews</NavLink>
+                        <NavLink to={{
+                            pathname: `${routes.movies}/${movieId}/reviews`,
+                            state: { from: location.state.from }
+                        }}>Reviews</NavLink>
                     </li>
                 </ul>
                 
