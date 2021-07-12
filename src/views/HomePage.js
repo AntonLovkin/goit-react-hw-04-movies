@@ -14,7 +14,7 @@ class HomePage extends Component {
     async componentDidMount() {
 
         API.fetchTrendingMovies().then(movies => { this.setState({ movies: movies }) });
-        localStorage.setItem('movies', JSON.stringify([]))
+        // localStorage.setItem('movies', JSON.stringify([]))
         
         // const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
         //     // .then(response => this.setState({ movies: response.data.results }))
