@@ -4,17 +4,26 @@ import RenderMovies from './RenderMovies';
 
 class MoviesPage extends Component {
     state = {
-        movies: JSON.parse(localStorage.getItem('movies')),
-        // movies: [],
+        // movies: JSON.parse(localStorage.getItem('movies')),
+        movies: [],
         value: '',
+    }
+
+     componentDidMount() {
+        const movieLocalStorage = localStorage.getItem('movies');
+        const parsedMovies = JSON.parse(movieLocalStorage)
+        if (parsedMovies) {
+            this.setState({movies: parsedMovies})
+        }
     }
 
      renderMovies = (e) => {
         e.preventDefault();
         API.fetchMoviesWithSearchQuery(this.state.value).then(movies => {
             this.setState({ movies: movies });
+            
             localStorage.setItem('movies', JSON.stringify(movies));
-            // console.log(this.state.movies);
+
             if (this.state.movies.length === 0) {
             alert('We could not find movies with this query')
             };
