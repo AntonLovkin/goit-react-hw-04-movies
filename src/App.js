@@ -7,8 +7,6 @@ import MovieDetailsPage from './views/MovieDetailsPage';
 // import Cast from './views/MoviesPage';
 // import Reviews from './views/MoviesPage';
 
-
-
 const App = () => (
   <>
     <ul>
@@ -18,20 +16,22 @@ const App = () => (
        <li>
         <Link to="/movies">MoviesPage</Link>
       </li>
-       {/* <li>
-        <Link to="/movies/:movieId">MovieDetailsPage</Link>
-      </li> */}
     </ul>
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/movies" component={MoviesPage} />
       <Route path="/movies/:movieId" component={MovieDetailsPage} />
             
-      {/* <Route path="/movies/:movieId/cast" component={Cast} />
-      <Route path="/movies/:movieId/reviews" component={Reviews} /> */}
-      {/* <Route component={HomePage} /> */}
     </Switch>
   </>
 )
 
 export default App;
+
+    //  <Route path="/movies/:movieId/cast" component={Cast} />
+    //   <Route path="/movies/:movieId/reviews" component={Reviews} />
+    //   <Route component={HomePage} />
+    
+    //  <li>
+    //     <Link to="/movies/:movieId">MovieDetailsPage</Link>
+    //   </li>
