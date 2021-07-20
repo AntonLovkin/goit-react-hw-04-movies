@@ -3,7 +3,12 @@ import { Route, NavLink } from 'react-router-dom';
 import Cast from './Cast';
 import Reviews from './Reviews';
 import API from '../API';
-import routes from '../routes'
+import routes from '../routes';
+
+import queryString from 'query-string';
+
+
+
 
 // const API_KEY = "3648f672b1c21855bded6f7b57b6e29a"
 
@@ -25,9 +30,30 @@ class MovieDetailsPage extends Component {
         // console.log(response.data);
         // this.setState({...response.data})
     }
+    
+    // componentDidUpdate(prevProps) {
+        
+    //   const getCategoryFromProps = props => queryString.parse(props.location.search).category;
+
+    //   const prevCategory = getCategoryFromProps(prevProps);
+    //   const nextCategory = getCategoryFromProps(this.props);
+
+    //   if (prevCategory !== nextCategory) {
+    //     this.fetchMoviesWithSearchQuery(nextCategory);
+    //   }
+    // };
+
+    // onCategoryChange = category => {
+    //     console.log('onCategoryChange');
+    //     this.props.history.push({
+    //         pathname: this.props.location.pathname,
+    //         search: `category=${category}`,
+    //     });
+    // };
+
 
     handleGoBack = () => {
-
+       console.log('handleGoBack');
        const routes = {
            home: '/',
            movies: '/movies',
@@ -36,15 +62,15 @@ class MovieDetailsPage extends Component {
            reviews: '/movies/:movieId/reviews'
 };
         const { location, history } = this.props;
-        // console.log(location);
-        //  console.log(location.state);
-         console.log(location.state.from);
 
+        // const queryParams = queryString.parse(this.props.location.search);
+        //  console.log(queryParams);
+        
         if (location.state && location.state.from) {
-            // console.log(location.state.from);
-            // console.log(history);
+        
           return history.push(location.state.from);
         };
+
         history.push(`${routes.home}`)
                    
     };

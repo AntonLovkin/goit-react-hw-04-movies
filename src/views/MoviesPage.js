@@ -22,7 +22,7 @@ class MoviesPage extends Component {
         API.fetchMoviesWithSearchQuery(this.state.value).then(movies => {
             this.setState({ movies: movies });
             
-            localStorage.setItem('movies', JSON.stringify(movies));
+            // localStorage.setItem('movies', JSON.stringify(movies));
 
             if (this.state.movies.length === 0) {
             alert('We could not find movies with this query')

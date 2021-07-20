@@ -6,7 +6,7 @@ function RenderMovies({ movies, location }) {
     return (
         <ul>{movies.map(({id, title, name}) =>
         (<li key={id} >
-            <Link
+            <Link onClick={this.onCategoryChange}
                 to={{
                 pathname: `movies/${id}`,
                 state: {from: location}
