@@ -1,52 +1,86 @@
 import React, { Component } from 'react';
 import API from '../API';
 import RenderMovies from './RenderMovies';
+import SearchForm from './SearchForm';
+import queryString from 'query-string';
+import axios from 'axios';
+
 
 class MoviesPage extends Component {
-    state = {
-        // movies: JSON.parse(localStorage.getItem('movies')),
-        movies: [],
-        value: '',
-    }
+  state = {
+    movies: [],
+  };
 
-     componentDidMount() {
-        const movieLocalStorage = localStorage.getItem('movies');
-        const parsedMovies = JSON.parse(movieLocalStorage)
-        if (parsedMovies) {
-            this.setState({movies: parsedMovies})
-        }
-    }
-
-     renderMovies = (e) => {
-        e.preventDefault();
-        API.fetchMoviesWithSearchQuery(this.state.value).then(movies => {
-            this.setState({ movies: movies });
-            
-            // localStorage.setItem('movies', JSON.stringify(movies));
-
-            if (this.state.movies.length === 0) {
-            alert('We could not find movies with this query')
-            };
+  componentDidMount() {
+    const query = queryString.parse(this.props.location.search).query;
+    console.log(query);
+    if (query) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/search/movie?api_key=b0771150ba8a2e624afdbb8a92bbf802&query=${query}`,
+        )
+          .then(response => {
+            console.log(response.data.results);
+          this.setState({
+            movies: response.data.results,
+          });
         });
+      };
     };
 
-    setValue = (e) => {
-        this.setState({ value: e.target.value });
+    componentDidUpdate(prevProps) {
+    const getCategoryFromProps = props => queryString.parse(props.location.search).query;
+    
+    const prevCategory = getCategoryFromProps(prevProps);
+    const nextCategory = getCategoryFromProps(this.props);
+        
+      if (prevCategory !== nextCategory) {
+      this.onChangeQuery(nextCategory);
+        };
     };
+    
+//     componentDidUpdate(prevProps) {
+//         const getCategoryFromProps = props => queryString.parse(props.location.search).query;
+        
+//         const prevCategory = getCategoryFromProps(prevProps);
+//         const nextCategory = getCategoryFromProps(this.props);
+        
+//   if (prevCategory !== nextCategory) {
+//       this.onChangeQuery(nextCategory);
+//         };
+//     };
 
-    render() {
-        const { value, movies } = this.state;
-        // console.log(movies);
-        return (
-            <>
-                <form onSubmit={this.renderMovies}>
-                    <input type="text" value={value} onChange={this.setValue} className='input'/>
-                    <button type='submit'>Search</button>
-                </form>
-                {movies.length > 0 && <RenderMovies movies={movies} />}
-            </>
-        );
-    };
+  onChangeQuery = query => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/search/movie?api_key=b0771150ba8a2e624afdbb8a92bbf802&query=${query}`,
+      )
+        .then(response => {
+        //   console.log(response.data.results);
+        this.setState({
+          movies: response.data.results,
+        });
+
+        if (this.state.movies.length === 0) {
+          alert('Sorry, movie not found');
+        }
+      });
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `search=${query}`,
+    });
+  };
+
+  render() {
+    // console.log(this.props.match.url);
+    return (
+      <>
+        <SearchForm onSubmit={this.onChangeQuery} />
+
+        <RenderMovies movies={this.state.movies} />
+      </>
+    );
+  }
 }
 
 export default MoviesPage;
