@@ -53,7 +53,7 @@ class MovieDetailsPage extends Component {
 
 
     handleGoBack = () => {
-       console.log('handleGoBack');
+    //    console.log('handleGoBack');
        const routes = {
            home: '/',
            movies: '/movies',
