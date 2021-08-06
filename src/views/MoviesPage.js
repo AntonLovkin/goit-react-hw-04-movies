@@ -28,16 +28,16 @@ class MoviesPage extends Component {
       };
     };
 
-    componentDidUpdate(prevProps) {
-    const getCategoryFromProps = props => queryString.parse(props.location.search).query;
+//     componentDidUpdate(prevProps) {
+//     const getCategoryFromProps = props => queryString.parse(props.location.search).query;
     
-    const prevCategory = getCategoryFromProps(prevProps);
-    const nextCategory = getCategoryFromProps(this.props);
+//     const prevCategory = getCategoryFromProps(prevProps);
+//     const nextCategory = getCategoryFromProps(this.props);
         
-      if (prevCategory !== nextCategory) {
-      this.onChangeQuery(nextCategory);
-        };
-    };
+//       if (prevCategory !== nextCategory) {
+//       this.onChangeQuery(nextCategory);
+//         };
+//     };
     
 //     componentDidUpdate(prevProps) {
 //         const getCategoryFromProps = props => queryString.parse(props.location.search).query;
